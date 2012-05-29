@@ -2,6 +2,18 @@ unit jyURLFunc;
 
 interface
 
+// AnalyziFTPUrl
+// 2012-05-29
+// 用于分析ftp url的各部分内容，要包含文件名(如不包含，则最后一个字符必需为'/')
+// 参数:
+//   AFTPUrl: ftp url, like: ftp://user:password@192.168.1.168:10021/_public/test.exe
+//   AUser:   Username field in url string: 'user'
+//   APwd:    Password field in url string: 'password'
+//   ADomain: IP Address or Domain field in url string: '192.168.1.168'
+//   APort:   Port field in url string: 10021 (default: 21)
+//   ADir:    Dir field in url string: '/_public/'
+//   AFile:   File name field in url string: 'test.exe'
+
 function AnalyzeFTPUrl(AFTPUrl: string; var AUser, APwd, ADomain: string; var APort: integer; var ADir, AFile: string): boolean;
 
 implementation
@@ -13,7 +25,6 @@ var
   url: string;
   i: integer;
   iDomainStart: integer;
-  iDomainEnd: integer;
   iFileStart: integer;
 begin
   result := false;

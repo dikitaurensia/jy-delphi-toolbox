@@ -20,9 +20,9 @@ object frmMain: TfrmMain
     Top = 0
     Width = 780
     Height = 522
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'FTP URL'
@@ -35,21 +35,141 @@ object frmMain: TfrmMain
         Caption = 'URL:'
         Layout = tlCenter
       end
-      object Edit1: TEdit
+      object edtFTPFileURL: TEdit
         Left = 72
         Top = 8
         Width = 693
         Height = 21
         TabOrder = 0
-        Text = 'Edit1'
+        Text = 'ftp://user:password@192.168.1.168/_public/test.exe'
       end
-      object Button1: TButton
+      object btnAnalyzeFTPUrl: TButton
         Left = 8
         Top = 36
         Width = 141
         Height = 25
-        Caption = 'Button1'
+        Caption = 'AnalyzeFTPUrl'
         TabOrder = 1
+        OnClick = btnAnalyzeFTPUrlClick
+      end
+      object memAnalyzeFTPUrl: TMemo
+        Left = 8
+        Top = 68
+        Width = 753
+        Height = 121
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Courier New'
+        Font.Style = []
+        Lines.Strings = (
+          'memAnalyzeFTPUrl')
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 2
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'FTP Download'
+      ImageIndex = 1
+      object Label2: TLabel
+        Left = 8
+        Top = 8
+        Width = 65
+        Height = 21
+        AutoSize = False
+        Caption = 'URL:'
+        Layout = tlCenter
+      end
+      object Label3: TLabel
+        Left = 8
+        Top = 92
+        Width = 65
+        Height = 21
+        AutoSize = False
+        Caption = 'Local Name:'
+        Layout = tlCenter
+      end
+      object Label4: TLabel
+        Left = 8
+        Top = 36
+        Width = 65
+        Height = 21
+        AutoSize = False
+        Caption = 'UserName:'
+        Layout = tlCenter
+      end
+      object Label5: TLabel
+        Left = 8
+        Top = 64
+        Width = 65
+        Height = 21
+        AutoSize = False
+        Caption = 'UserName:'
+        Layout = tlCenter
+      end
+      object edtDownloadURL: TEdit
+        Left = 72
+        Top = 8
+        Width = 693
+        Height = 21
+        TabOrder = 0
+        Text = 'ftp://192.168.1.168/_public/test.exe'
+      end
+      object Button1: TButton
+        Left = 8
+        Top = 120
+        Width = 141
+        Height = 25
+        Caption = 'Download !'
+        TabOrder = 1
+        OnClick = Button1Click
+      end
+      object edtLocalFileName: TEdit
+        Left = 72
+        Top = 92
+        Width = 693
+        Height = 21
+        TabOrder = 2
+        Text = 'd:\jiaoyan\toll\test.exe.jyTMP'
+      end
+      object slvDownload: TShellListView
+        Left = 8
+        Top = 152
+        Width = 757
+        Height = 337
+        ObjectTypes = [otFolders, otNonFolders]
+        Root = 'C:\'
+        Sorted = True
+        ReadOnly = False
+        HideSelection = False
+        TabOrder = 3
+        ViewStyle = vsReport
+      end
+      object Button2: TButton
+        Left = 152
+        Top = 120
+        Width = 141
+        Height = 25
+        Caption = 'Refresh'
+        TabOrder = 4
+        OnClick = Button2Click
+      end
+      object edtFTPUserName: TEdit
+        Left = 72
+        Top = 36
+        Width = 169
+        Height = 21
+        TabOrder = 5
+        Text = 'anonymous'
+      end
+      object edtFTPPassword: TEdit
+        Left = 72
+        Top = 64
+        Width = 169
+        Height = 21
+        TabOrder = 6
+        Text = '@jysoft'
       end
     end
   end
