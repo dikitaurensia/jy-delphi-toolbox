@@ -45,7 +45,7 @@ OutputDir=.\_output
 UnitOutputDir=.\_temp
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=C:\Program Files (x86)\Borland\Delphi6\Source\indy9
+SearchPath=C:\Program Files (x86)\Borland\Delphi6\Source\indy9;D:\My Documents\Other Program\units\Win32Api
 Packages=vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;soaprtl;dbexpress;dbxcds;dclOffice2k
 Conditionals=
 DebugSourceDirs=
@@ -93,11 +93,12 @@ F:\Downloads\delphi-ffmpeg-trial-3.9\FFVCL_Trial_v3.9\FFmpeg_D6.bpl=Delphi FFmpe
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=4
-Item0=C:\Program Files (x86)\Borland\Delphi6\Source\indy9
-Item1=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy9;.\usbdisk;C:\Program Files (x86)\Borland\Delphi6\Source\Indy9
-Item2=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy;.\usbdisk;C:\Program Files (x86)\Borland\Delphi6\Source\Indy
-Item3=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy;.\usbdisk
+Count=5
+Item0=C:\Program Files (x86)\Borland\Delphi6\Source\indy9;D:\My Documents\Other Program\units\Win32Api
+Item1=C:\Program Files (x86)\Borland\Delphi6\Source\indy9
+Item2=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy9;.\usbdisk;C:\Program Files (x86)\Borland\Delphi6\Source\Indy9
+Item3=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy;.\usbdisk;C:\Program Files (x86)\Borland\Delphi6\Source\Indy
+Item4=.\ImageEn;.\gdiplus;C:\Program Files\Borland\Delphi6\Ocx\Servers;C:\Program Files\Borland\Delphi6\Source\Indy;.\usbdisk
 [HistoryLists\hlUnitOutputDirectory]
 Count=2
 Item0=.\_temp

@@ -20,9 +20,9 @@ object frmMain: TfrmMain
     Top = 0
     Width = 780
     Height = 522
-    ActivePage = TabSheet2
+    ActivePage = TabSheet3
     Align = alClient
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'FTP URL'
@@ -170,6 +170,74 @@ object frmMain: TfrmMain
         Height = 21
         TabOrder = 6
         Text = '@jysoft'
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'zLib Test'
+      ImageIndex = 2
+      object SpeedButton1: TSpeedButton
+        Left = 744
+        Top = 68
+        Width = 23
+        Height = 22
+        Caption = '...'
+        OnClick = SpeedButton1Click
+      end
+      object SpeedButton2: TSpeedButton
+        Left = 744
+        Top = 132
+        Width = 23
+        Height = 22
+        Caption = '...'
+        OnClick = SpeedButton2Click
+      end
+      object Button3: TButton
+        Left = 8
+        Top = 96
+        Width = 75
+        Height = 25
+        Caption = 'Compress'
+        TabOrder = 0
+        OnClick = Button3Click
+      end
+      object Button4: TButton
+        Left = 8
+        Top = 160
+        Width = 75
+        Height = 25
+        Caption = 'DeCompress'
+        TabOrder = 1
+        OnClick = Button4Click
+      end
+      object edtSourceFile: TEdit
+        Left = 8
+        Top = 68
+        Width = 729
+        Height = 21
+        TabOrder = 2
+        Text = 'edtSourceFile'
+      end
+      object edtD6ZLIB1File: TEdit
+        Left = 8
+        Top = 132
+        Width = 729
+        Height = 21
+        TabOrder = 3
+        Text = 'edtSourceFile'
+      end
+      object rgCompressType: TRadioGroup
+        Left = 8
+        Top = 8
+        Width = 761
+        Height = 49
+        Caption = 'Compress Type'
+        Columns = 5
+        ItemIndex = 0
+        Items.Strings = (
+          'None'
+          'D6Zlib1'
+          'D6Zlib2')
+        TabOrder = 4
       end
     end
   end

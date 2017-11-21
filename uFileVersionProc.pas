@@ -1,0 +1,96 @@
+unit uFileVersionProc;
+
+interface
+
+function GetFileVersion(AFile: string): string;
+
+{ Compares two strings which contains version number.
+  (i.e: compare "2.0.4.0" and "13.46.21.45").  Returns:    <0 if NewVersion < OldVersion    =0 if NewVersion = OldVersion    >0 if NewVersion > OldVersion  Modifications: If some section of version number contains  characters (i.e: "1.02b"), the section will be compared as  usual string with StrComp(). }function VersionCheck(const NewVersion, OldVersion: String): ShortInt;
+
+implementation
+
+uses Windows, SysUtils, JwaWinSvc;
+
+function GetFileVersion(AFile: string): string;
+type
+  PTranslate = ^TTranslate;
+  TTranslate = record
+    wLanguage: WORD;
+    wCodePage: WORD;
+  end;
+var
+  len: Cardinal;
+  Zero: Cardinal;
+  lpData: array of byte;
+  lpTranslate: PTranslate;
+  strValPath: string;
+  pFileVersion: pchar;
+begin
+  result := '0.0.0.0';
+  try
+    len := GetFileVersionInfoSize(pchar(AFile), Zero);
+    if len <= 0 then exit;
+    SetLength(lpData, len);
+    if not GetFileVersionInfo(pchar(AFile), Zero, len, @lpData[0]) then exit;
+    if not VerQueryValue(@lpData[0], '\VarFileInfo\Translation', Pointer(lpTranslate), len) then exit;
+    strValPath := Format('\StringFileInfo\%.4x%.4x\FileVersion', [lpTranslate.wLanguage, lpTranslate.wCodePage]);
+    if not VerQueryValue(@lpData[0], pchar(strValPath), Pointer(pFileVersion), len) then exit;
+    result := pFileVersion;
+  except
+    
+  end;
+end;
+
+function VersionCheck(const NewVersion, OldVersion: String): ShortInt;
+const
+  MAX_SECTIONS = 4;
+type
+  TVersionArrayStr = Array[1..MAX_SECTIONS] of String;
+var
+  I, VNew, VOld: Integer;
+  OldVersionStr, NewVersionStr: TVersionArrayStr;
+
+  procedure SplitVersionStr(Version: String; var VersionArrayStr: TVersionArrayStr);
+  var
+    I, P: Integer;
+  begin
+    Version := trim(Version) + '.';
+    for I := 1 to MAX_SECTIONS do
+     begin
+      P := Pos('.', Version);
+      if P = 0 then
+        VersionArrayStr[I] := '0'
+      else
+        VersionArrayStr[I] := Copy(Version, 1, P - 1);
+      Version := Copy(Version, P + 1, Length(Version));
+     end;
+  end;
+
+begin
+  Result := 0;
+  SplitVersionStr(NewVersion, NewVersionStr);
+  SplitVersionStr(OldVersion, OldVersionStr);
+
+  for I := 1 to MAX_SECTIONS do
+   begin
+    VNew := StrToIntDef(NewVersionStr[I], -1);
+    VOld := StrToIntDef(OldVersionStr[I], -1);
+
+    if (VNew = -1) or (VOld = -1) then
+     begin
+      Result := StrComp(PChar(NewVersion), PChar(OldVersion));
+      Exit;
+     end 
+    else
+     if VNew <> VOld then
+      begin
+       if VNew > VOld then
+        Result := 1   // new version greater
+       else
+        Result := -1; // new version lower
+       Exit;
+      end;
+   end;
+end;
+
+end.

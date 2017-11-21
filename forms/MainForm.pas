@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ShellCtrls;
+  Dialogs, ComCtrls, StdCtrls, ShellCtrls, Buttons, ExtCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -26,9 +26,21 @@ type
     edtFTPUserName: TEdit;
     Label5: TLabel;
     edtFTPPassword: TEdit;
+    TabSheet3: TTabSheet;
+    Button3: TButton;
+    Button4: TButton;
+    edtSourceFile: TEdit;
+    SpeedButton1: TSpeedButton;
+    edtD6ZLIB1File: TEdit;
+    SpeedButton2: TSpeedButton;
+    rgCompressType: TRadioGroup;
     procedure btnAnalyzeFTPUrlClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,7 +52,7 @@ var
 
 implementation
 
-uses jyURLFunc, jyDownloadFTPFile;
+uses zLib, jyURLFunc, jyDownloadFTPFile, StrUtils, uDelphiCompress;
 
 {$R *.dfm}
 
@@ -72,10 +84,63 @@ end;
 
 procedure TfrmMain.Button1Click(Sender: TObject);
 begin
-  if DownloadAFile(edtDownloadURL.Text, edtFTPUserName.Text, edtFTPPassword.Text, edtLocalFileName.Text, true) then
+  if DownloadToFile(edtDownloadURL.Text, edtFTPUserName.Text, edtFTPPassword.Text, edtLocalFileName.Text, true) then
     showmessage('Success. ^_^')
   else
     showmessage('Fail. :(');
+end;
+
+procedure TfrmMain.Button3Click(Sender: TObject);
+var
+  strTargetFile: string;
+begin
+  case rgCompressType.ItemIndex of
+    0: strTargetFile := ChangeFileExt(edtSourceFile.Text, '.none');
+    1: strTargetFile := ChangeFileExt(edtSourceFile.Text, '.d6zlib1');
+    2: strTargetFile := ChangeFileExt(edtSourceFile.Text, '.d6zlib2');
+  end;
+  if DelphiCompressFile(rgCompressType.ItemIndex, edtSourceFile.Text, strTargetFile) then
+    ShowMessage(Format('Compress Finished. Target file: %s', [strTargetFile]))
+  else
+    ShowMessage('Fail.');
+end;
+
+procedure TfrmMain.Button4Click(Sender: TObject);
+var
+  ss: TMemoryStream;
+begin
+  ss := TMemoryStream.Create;
+  ss.LoadFromFile(edtD6Zlib1File.Text);
+
+  if DelphiDecompressStream(rgCompressType.ItemIndex, ss, 'c:\tttt1.exe') then
+    ShowMessage('Success.')
+  else
+    ShowMessage('Fail.');
+
+  ss.Free;
+end;
+
+procedure TfrmMain.SpeedButton1Click(Sender: TObject);
+begin
+  with TOpenDialog.Create(nil) do
+  try
+    Execute;
+    edtSourceFile.Text := FileName;
+  finally
+    Free;
+  end;
+end;
+
+procedure TfrmMain.SpeedButton2Click(Sender: TObject);
+begin
+  with TOpenDialog.Create(nil) do
+  try
+    Filter := '*.none|*.none, *.d6zlib1|*.d6zlib1, *.d6zlib2|*.d6zlib2';
+    Execute;
+    edtD6Zlib1File.Text := FileName;
+  finally
+    Free;
+  end;
 end;
 
 end.
